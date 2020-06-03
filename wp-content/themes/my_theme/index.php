@@ -16,12 +16,17 @@
 
 get_header();
 ?> 
-<?php $user= wp_get_current_user();
-$myArray = json_decode(json_encode($user), true);
+<?php
+$user    = wp_get_current_user();
+$myArray = json_decode( json_encode( $user ), true );
 
-//print_r($myArray);
-$role=$myArray['roles'][0];
-echo $role;?>
+
+$role = $myArray['roles'][0];
+if(empty($role)){
+	$role='guest';
+}
+echo $role;
+?>
 
 
 <h3>This is index.php</h3>
@@ -45,7 +50,7 @@ echo $role;?>
 if ( have_posts() ) {
 	while ( have_posts() ) {
 		the_post();
-		get_template_part('content',get_post_format());
+		get_template_part( 'content', get_post_format() );
 		?>
 <!-- Blog Post -->
 

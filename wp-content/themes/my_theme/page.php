@@ -28,7 +28,7 @@ if ( have_posts() ) {
 		the_post();
 		?>
 <!-- Blog Post -->
-<div class="card mb-4">
+<div class="card mb-4 content" >
 <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
 <div class="card-body">
 <a href="<?php the_permalink(); ?>"><h2 class="card-title"><?php the_title(); ?></h2></a>
@@ -44,6 +44,7 @@ Posted on January 1, 2017 by
 		<?php
 	}
 }
+checkpage();
 ?>
 <!-- Pagination -->
 <ul class="pagination justify-content-center mb-4">
