@@ -16,7 +16,13 @@
 
 get_header();?> 
 
+<?php if( is_single() ){
+	echo "this is coming bcoz of is_single() function and we can also provide post id in this function as an parameter";
+	}?>
 <h3>This is single.php page</h3>
+<?php checkfront();?></br>
+<!-- post type:<?php //echo get_post_type();?> -->
+
 
 <!-- Page Content -->
 <div class="container">
@@ -39,7 +45,9 @@ if ( have_posts() ) {
 
 <!-- Blog Post -->
 <div class="card mb-4">
-	<img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+	<?php echo get_post_type();?>
+	<!-- <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap"> -->
+	<?php the_post_thumbnail( 'banner-image' ); ?>
 	<div class="card-body">
 		<a href="<?php the_permalink(); ?>"><h2 class="card-title">Single.php<?php the_title(); ?></h2></a>
 		<p class="card-text"><?php the_content(); ?></p>

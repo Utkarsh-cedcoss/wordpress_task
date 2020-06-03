@@ -1,0 +1,472 @@
+/*
+Theme Name: Reservoir
+Theme URI: http://www.cryoutcreations.eu/wordpress-themes/reservoir
+Description: Reservoir is clean, stylish and flexible. Reservoir is also lightweight, fast and customizable. It's multi-purpose. It's SEO friendly, WPML compatible, translation and RTL ready. Reservoir works smoothly and looks great with WooCommerce. Use it for business, portfolio, blog and photography sites. Also eCommerce shops. Anything. Everything. Reservoir.
+Author: Cryout Creations
+Author URI: http://www.cryoutcreations.eu
+Version: 1.1.2
+Tested up to: 5.4.1
+Requires PHP: 5.3
+License: GNU General Public License v3.0
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
+Tags: one-column, two-columns, three-columns, right-sidebar, left-sidebar, grid-layout, custom-background, custom-colors, custom-header, flexible-header, custom-menu, featured-image-header, featured-images, front-page-post-form, full-width-template, footer-widgets, microformats, post-formats, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready, news, photography, portfolio
+Template: fluida
+Text Domain: reservoir
+
+Reservoir WordPress Theme - Copyright 2019, Cryout Creations - http://www.cryoutcreations.eu
+This theme, like WordPress, is licensed under the GPL.
+*/
+
+
+/* HEADER */
+#site-title a,
+#access a > span  {
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+#site-title span > a {
+    border-radius: 100px;
+    padding: 0 .6em;
+    background: rgba(0,0,0,.05);
+}
+
+#site-title span a span {
+    padding: 0;
+    border-radius: 100px;
+    background: transparent;
+}
+
+nav#mobile-menu a {
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+#sheader a::before {
+    font-size: 0.9em;
+}
+
+/* CONTENT */
+
+.main article.hentry .post-thumbnail-container {
+    background: transparent;
+}
+
+.entry-title {
+    padding: 0.3em 0;
+}
+
+.content-masonry .entry-title {
+    padding: 0.5em 0 0.6em 0;
+}
+
+.entry-title a {
+    font-weight: inherit;
+    border-bottom: 3px dotted rgba(0,0,0,.1);
+}
+
+.entry-title a:active,
+.entry-title a:hover {
+    border-bottom: 3px dotted;
+}
+
+a.continue-reading-link {
+    width: 100%;
+    margin: 1em auto 0.5em;
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+    border-radius: 100px;
+    text-align: center;
+}
+
+.fluida-magazine-two #content-masonry {
+    margin-right: -2%;
+    margin-left: -2%;
+}
+
+.fluida-magazine-two #content-masonry article.hentry {
+    width: 46%;
+    margin-right: 2%;
+    margin-left: 2%;
+    margin-bottom: 3em;
+}
+
+.entry-meta {
+    overflow: visible;
+}
+
+.entry-meta .author {
+    float: left;
+    width: auto;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.entry-meta .icon-metas::before {
+    width: auto;
+    padding: 5px;
+    border-radius: 100px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.1);
+    -webkit-transition: .2s ease-out all;
+    transition: .2s ease-out all;
+}
+
+.entry-meta > span:hover .icon-metas::before {
+    transform: rotate(30deg);
+    box-shadow: 0 0 10px 5px rgba(0,0,0,.1);
+}
+
+.continue-reading-link span::after {
+    display: none;
+}
+
+a.continue-reading-link:hover:before {
+	left: 0;
+    top: -100%;
+}
+
+.fluida-elementshadow #site-header-main,
+.fluida-elementshadow article.hentry,
+.fluida-elementshadow .pad-container,
+.fluida-elementshadow .sidey,
+.fluida-elementshadow .page-numbers:not(.dots) {
+    box-shadow: 0 0 1em 0.2em rgba(0, 0, 0, 0.05);
+}
+
+.fluida-elementshadow article.hentry {
+    -webkit-transition: .3s ease-out all;
+    transition: .3s ease-out all;
+}
+
+.fluida-elementshadow:not(.single) article.hentry:hover {
+    box-shadow: 0 0 1em 1.2em rgba(0, 0, 0, 0.06);
+}
+
+.main,
+.fluida-landing-page .lp-posts-inside {
+     overflow: visible;
+ }
+
+ .searchform {
+     border-width: 3px;
+     border-radius: 100px;
+ }
+
+ .searchform input[type="search"] {
+     font-weight: bold;
+     padding-left: 1.5em;
+ }
+
+ .searchform i {
+     padding-right: 3px;
+ }
+
+ #access .menu-search-animated .searchform input[type="search"] {
+     padding-left: 2em;
+ }
+
+ .page-title strong {
+     font-weight: bold;
+     text-decoration: none;
+ }
+
+ .single #author-info {
+     border-top-width: 5px;
+     margin-top: 3.5em;
+     padding-top: 2.5em;
+     padding-bottom: 2.5em;
+ }
+
+ #nav-below .nav-previous a::before,
+ #nav-below .nav-next a::before {
+     height: 3px;
+     top: -3px;
+     border-radius: 100px;
+ }
+
+ #nav-below a {
+     font-weight: bold;
+ }
+
+ button,
+ input[type="button"],
+ input[type="submit"],
+ input[type="reset"] {
+     font-weight: bold;
+     font-size: 1.1em;
+     border-radius: 100px;
+ }
+
+ textarea,
+ select,
+ input[type="text"],
+ input[type="password"],
+ input[type="email"],
+ input[type="color"],
+ input[type="date"],
+ input[type="datetime"],
+ input[type="datetime-local"],
+ input[type="month"],
+ input[type="number"],
+ input[type="range"],
+ input[type="search"],
+ input[type="tel"],
+ input[type="time"],
+ input[type="url"],
+ input[type="week"] {
+     border-width: 2px;
+     border-radius: 6px;
+     padding: 1em;
+     font-weight: bold;
+ }
+
+ textarea,
+ select {
+     border-radius: 6px;
+ }
+
+ #author-info #author-link {
+     font-weight: bold;
+ }
+
+ .fluida-comment-placeholder #commentform > p {
+     font-size: 1em;
+ }
+
+ #respond .form-submit input#submit {
+     width: 100%;
+     margin-top: 1em;
+     padding: 1em 3em;
+     box-shadow: 0 0 30px 10px rgba(0,0,0,.1);
+}
+
+#respond input:not(#submit),
+#respond textarea {
+    -webkit-transition: .3s ease-out all;
+    transition: .3s ease-out all;
+}
+
+#respond input:not(#submit):hover,
+#respond textarea:hover {
+    box-shadow: 0 0 20px 0 rgba(0,0,0,.1);
+}
+
+#nav-below .nav-previous a::before,
+#nav-below .nav-next a::before {
+    border-top-width: 3px;
+    border-top-style: dotted;
+    background: transparent;
+}
+
+.pagination span,
+.pagination a {
+     height: 2.2em;
+     width: 2.2em;
+     border-radius: 100px;
+     margin-right: 6px;
+ }
+
+ .pagination a:hover,
+ .pagination span:hover {
+     width: 2.2em;
+     height: 2.2em;
+ }
+
+.pagination .dots {
+    width: 2.2em;
+}
+
+ span.entry-format {
+     border-radius: 100px;
+ }
+
+ /* WIDGETS */
+ .widget-title {
+     text-transform: none;
+     letter-spacing: 0;
+     font-size: 1.2em;
+     border-bottom: 3px dotted;
+ }
+
+ .fluida-normalizedtags #content .tagcloud a {
+     border-radius: 100px;
+ }
+
+ .fluida-totop-normal #toTop {
+     margin-bottom: 65px;
+     border-radius: 100px;
+     border-width: 3px;
+     padding: 0.15em 1.2em;
+ }
+
+ nav.sidebarmenu {
+     border-width: 2px;
+ }
+
+ nav.sidebarmenu li a {
+     border-width: 2px;
+     text-transform: none;
+     font-weight: bold;
+ }
+
+ /* COMMENTS */
+ .commentlist .comment-body {
+     border-width: 4px;
+     border-radius: 10px;
+ }
+
+ .commentlist .author-name,
+ .commentlist .author-name a {
+     font-weight: bold;
+     text-decoration: none;
+ }
+
+ .comment .reply a {
+     letter-spacing: 0;
+     text-transform: none;
+     font-size: 1em;
+     font-weight: bold;
+     opacity: 0.5;
+ }
+
+ .comment-author .author-name {
+     padding: 0 0.5em;
+ }
+
+ /* FOOTER */
+ #site-copyright {
+     font-size: 1em;
+     font-weight: bold;
+ }
+
+ .footermenu ul li a {
+     font-size: 1em;
+     text-transform: none;
+     font-weight: 400;
+     letter-spacing: 0;
+ }
+
+ .footermenu ul li span.sep {
+     opacity: 0;
+ }
+
+ .footer-all .widget-container::after,
+ .footer-two .widget-container::after,
+ .footer-three .widget-container::after,
+ .footer-four .widget-container::after {
+     content: none;
+ }
+
+/* LANDING PAGE */
+.lp-staticslider .staticslider-caption-title,
+.seriousslider.seriousslider-theme .seriousslider-caption-title {
+    font-size: 5.2em;
+    line-height: 1.3;
+    letter-spacing: 1px;
+    text-transform: none;
+}
+
+.lp-staticslider .staticslider-sep {
+    height: 6px;
+    border-radius: 6px;
+    opacity: 0.4;
+}
+
+.main .lp-block-title {
+    margin-bottom: 1.5em;
+    font-size: 1.2em;
+    letter-spacing: 0;
+    text-transform: none;
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+}
+
+.lp-block {
+    overflow: visible;
+}
+
+.lp-block i::before {
+    width: 75px;
+    margin-bottom: 1em;
+    border-radius: 100px;
+    padding: 20px;
+    color: #FFF;
+    box-shadow: 0 0 30px 0 rgba(0,0,0,.2);
+}
+
+.lp-block:hover i::before {
+    color: #FFF;
+}
+
+.lp-block i::after {
+    display: none;
+}
+
+.lp-box-title {
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.lp-box-readmore {
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.lp-boxes-static .lp-box {
+    overflow: visible;
+}
+
+.lp-boxes-static .lp-box .lp-box-image {
+    box-shadow: 0 0 40px 10px rgba(0,0,0,.1);
+}
+
+.lp-boxes-static .lp-box-link {
+    top: 65%;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    background: transparent;
+}
+
+.lp-boxes-static .lp-box-title {
+    font-size: 1.35em;
+}
+
+.lp-boxes-static .lp-box-content {
+    margin-top: 1em;
+}
+
+.lp-boxes-static .lp-box-overlay {
+     background-color: #FFF;
+}
+
+.lp-boxes-animated .lp-box-title {
+    font-weight: bold;
+}
+
+.lp-boxes-animated .lp-box-readmore {
+    border-radius: 100px;
+    font-size: 0.9em;
+    font-weight: bold;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.lp-boxes-animated .lp-box .lp-box-readmore > i::before {
+    left: 0;
+    vertical-align: middle;
+}
+
+#cryout_ajax_more_trigger {
+    width: 100%;
+    border-radius: 100px;
+    opacity: 0.2;
+}
+
+#cryout_ajax_more_trigger:hover {
+    opacity: 0.5;
+}
+
+
+/* FIN */

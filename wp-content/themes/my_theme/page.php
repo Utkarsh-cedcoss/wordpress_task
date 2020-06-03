@@ -7,6 +7,7 @@
 
 get_header();?> 
 <h3>This is page.php</h3>
+<?php checkfront();?>
 
 <!-- Page Content -->
 <div class="container">

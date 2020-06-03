@@ -16,8 +16,17 @@
 
 get_header();
 ?> 
+<?php $user= wp_get_current_user();
+$myArray = json_decode(json_encode($user), true);
+
+//print_r($myArray);
+$role=$myArray['roles'][0];
+echo $role;?>
+
 
 <h3>This is index.php</h3>
+<?php checkfront();?>
+<?php checkhome();?>
 
 <!-- Page Content -->
 <div class="container">
@@ -36,23 +45,10 @@ get_header();
 if ( have_posts() ) {
 	while ( have_posts() ) {
 		the_post();
+		get_template_part('content',get_post_format());
 		?>
 <!-- Blog Post -->
-<div class="card mb-4">
-	<?php the_post_thumbnail( 'category-thumb' ); ?>
-	<!-- <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap"> -->
-	<div class="card-body">
-		<a href="<?php the_permalink(); ?>"><h2 class="card-title"><?php the_title(); ?></h2></a>
-		<p class="card-text"><?php the_content(); ?></p>
-		<a href="<?php the_permalink(); ?>" class="btn btn-primary">Read More &rarr;</a>
-	</div>
-	<div class="card-footer text-muted">
-		Posted on <a href="#"><?php the_date(); ?></a> by
-		<a href="#"><?php the_author(); ?></a>
-		<a href="#"><?php the_category(); ?></a>
 
-	</div>
-</div>
 
 		<?php
 	}

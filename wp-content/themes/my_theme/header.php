@@ -33,7 +33,10 @@ wp_head();
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 <div class="container">
-<a class="navbar-brand" href="#">Start Bootstrap</a>
+<!-- <a class="navbar-brand" href="#">Start Bootstrap</a> -->
+<?php if(function_exists('themename_custom_logo_setup')){
+	the_custom_logo();
+}?>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 <span class="navbar-toggler-icon"></span>
 </button>
@@ -51,3 +54,7 @@ wp_head();
 </div>
 </div>
 </nav>
+<!-- <div style="background-image: url(<?php// header_image(); ?>)"></div> -->
+<img alt="" src="<?php header_image(); ?>" width="<?php echo absint( get_custom_header()->width ); ?>" height="<?php echo absint( get_custom_header()->height ); ?>">
+
+
