@@ -7,6 +7,10 @@
 
 get_header();?> 
 <h3>This is page.php</h3>
+<?php wp_title(); // This function prints the title of the page.?> 
+<?php  $a=wp_get_theme()->get_page_templates();
+	print_r($a);?> </br>
+
 <?php checkfront();?>
 
 <!-- Page Content -->

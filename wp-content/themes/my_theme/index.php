@@ -15,6 +15,7 @@
  */
 
 get_header();
+
 ?> 
 <?php
 $user    = wp_get_current_user();
@@ -25,11 +26,14 @@ $role = $myArray['roles'][0];
 if(empty($role)){
 	$role='guest';
 }
-echo $role;
+echo $role; echo '</br>';
+echo get_bloginfo('template_url');
 ?>
 
 
 <h3>This is index.php</h3>
+<?php echo wp_title();?>
+
 <?php checkfront();?>
 <?php checkhome();?>
 

@@ -64,6 +64,9 @@ wp_nav_menu(
 		</div>
 	</div>
 
+	<h4 style="color: blueviolet;">This is Sample image from customizer API:-</h4></br>
+	<img src="<?php echo get_option("owt_image_uploader");?>">
+
 	<!-- Side Widget -->
 	<div class="card my-4">
 		<h5 class="card-header">Side Widget</h5>
@@ -71,5 +74,15 @@ wp_nav_menu(
 			You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
 		</div>
 	</div>
+<!--------------------------------------------------------------------------------------------------------->
+<!--this is for dynamic sidebar containing widgets---------------------------------	 -->
+	<?php if(is_active_sidebar('sidebar-1')): ?>
+		<div id="seconadary" class="sidebar-container" role="complementary">
+			<div class="widget-area">
+				<?php dynamic_sidebar('sidebar-1');?>
+			</div>
+
+		</div>
+	<?php endif; ?>
 
 </div>

@@ -1,6 +1,6 @@
 
 /*
-Theme Name: Twenty Nineteen
+Theme Name: my_theme
 Theme URI: https://wordpress.org/themes/twentynineteen/
 Author: the WordPress team
 Author URI: https://wordpress.org/
@@ -35,4 +35,8 @@ article.post-aside{
     font-size: 82%;
     margin: 20px;
     color:rgb(173, 26, 26);
+}
+
+div.info-box{
+    background-color: greenyellow;
 }

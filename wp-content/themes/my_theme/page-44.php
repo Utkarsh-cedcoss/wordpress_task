@@ -18,6 +18,8 @@ get_header();
 ?> 
 
 <h3>This is page-44.php(about us page)</h3>
+<p>-this extra line is coming bcoz of this custom page</p>
+<?php echo is_page_template( 'page-44.php' );?>
 
 <!-- Page Content -->
 <div class="container">
@@ -52,8 +54,10 @@ if ( have_posts() ) {
 
 	</div>
 </div>
-
+		
 		<?php
+		// this code is to show custom posts using wp_query().
+
 		$our_current_page = get_query_var( 'paged' );
 
 		$aboutposts = new WP_Query(
@@ -81,6 +85,7 @@ if ( have_posts() ) {
 				)
 			);
 		}
+		wp_reset_postdata(); //After looping through a separate query, this function restores the $post global to the current post in the main query.
 		?>
 
 		<?php

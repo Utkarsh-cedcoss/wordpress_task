@@ -191,3 +191,21 @@ echo 'this is not front page';
 }
 }
 add_action( 'template_redirect', 'helphead' );
+
+
+
+if ( 'author' !== $role ) {
+$page_id = 155;
+if ( is_page( $page_id ) ) {
+$redirect = true;
+} elseif ( is_user_logged_in() ) {
+$redirect = false;
+}
+if ( $redirect ) {
+wp_redirect( esc_url( wp_login_url() ), 307 );
+}
+} else {
+echo 'this is not front page';
+}
+}
+
