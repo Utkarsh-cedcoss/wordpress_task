@@ -89,6 +89,15 @@ function custom_plugin_assets(){
 }
 add_action("init","custom_plugin_assets");
 
+
+// add_action("wp_enqueue_scripts","owt_include_scripts");
+// function owt_include_scripts(){
+// 	wp_enqueue_script("jquery");
+// }
+
+
+//add_action("wp_ajax_custom_plugin_library","owt_lib_ajax_handler_fn");
+//function owt_lib_ajax_handler_fn(){
 // handling ajax request
 if(isset($_REQUEST['action'])){  // it checks action parameter is set or not.
 	switch($_REQUEST['action']){  // if set pass to switch method to match cases.
@@ -101,6 +110,7 @@ if(isset($_REQUEST['action'])){  // it checks action parameter is set or not.
 	break;
 	}
 }
+//}
 
 //-------------------------------------------------------------------------------------------------------------------
 // code to generate table

@@ -11,24 +11,37 @@ Author: Utkarsh Saxena
 Version: 1.7.2
 Author URI: http://ma.tt/
 */
+function add_time(){
+    $current_time=date("h:i:sa");
+    add_option("date",$current_time);
+}
+register_activation_hook(__FILE__,'add_time');
 
 
-function add_my_menu(){
-    add_menu_page(
-    "helloworld",
-    "HelloWorld",
-    "manage_options",
-    "hello-world",
-    "add_function",
-    "dashicons-buddicons-replies",
-    );
-    }
-    add_action("admin_menu","add_my_menu");
+function delete_time(){
+    delete_option('date');
+}
+register_deactivation_hook(__FILE__,'delete_time');
+
+// if(is_single()){
+//     echo "this is dingle.php";
+// }
+
+ function wporg_filter_title($content)
+ {
+     if(is_single()){
+     //return 'The ' . $content . ' was filtered';
+     // $content='the' . $content
+     ?>
+     <a href="https://twitter.com/intent/tweet?url=<?php the_permalink();?>">Click here to post on twitter</a>
+     <?php
+     return $content;
+     
+     
     
-    function add_function(){
-    echo "here we will display time";
-    $date=date("h:i:sa");
-    echo $date;
-    }
-
-
+     }
+     else{
+         return $content;
+     }
+ }
+ add_filter('the_content', 'wporg_filter_title');
