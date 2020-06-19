@@ -12,7 +12,7 @@ Version: 1.7.2
 Author URI: http://ma.tt/
 */
 
-define("PLUGIN_DIR_PATH",plugin_dir_path(__FILE__));
+define("PLUGIN_DIRECTORY_PATH",plugin_dir_path(__FILE__));
 define("PLUGIN_URL",plugins_url()); //this is used when we apply css and javascript. this also provide path but in url form.
 define("PLUGIN_VERSION","1.0");
 
@@ -46,18 +46,29 @@ add_submenu_page(
     }
 	add_action("admin_menu","custom_menu");
 	
-	function new_function(){
-		echo "Here we will try our ajax things";
-		echo "</br>";
-		?>
-		<button class="btn">click here</button>
-		<?php
+function new_function(){
+	include_once PLUGIN_DIRECTORY_PATH."views/add_new.php";
+	//echo "Here we will try our ajax things";
+	//echo "</br>";
+		
 
-	}
+}
 
-	function add_all_pages(){
-		echo "we are in add all pages";
-		echo PLUGIN_URL;
-	}
+function add_all_pages(){
+	echo "we are in add all pages";
+	echo PLUGIN_URL;
+}
+
+function request_script(){
+	wp_enqueue_script('my_script',PLUGIN_URL.'/plugin_demo/js/script.js','',PLUGIN_VERSION,true);
+	wp_localize_script('my_script','ajax',admin_url('admin-ajax.php'));
+	wp_enqueue_script("jquery");
+}
+add_action('init','request_script');
+
+function owt_include_scripts(){
+	wp_enqueue_script("jquery");
+}
+add_action("wp_enqueue_scripts","owt_include_scripts");
 
 
