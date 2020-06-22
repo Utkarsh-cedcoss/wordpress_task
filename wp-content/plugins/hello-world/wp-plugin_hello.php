@@ -176,6 +176,8 @@ function wporg_options_page_html() {
  // check if the user have submitted the settings
  // wordpress will add the "settings-updated" $_GET parameter to the url
  if ( isset( $_GET['settings-updated'] ) ) {
+
+    
  // add settings saved message with the class of "updated"
  add_settings_error( 'wporg_messages', 'wporg_message', __( 'Settings Saved', 'wporg' ), 'updated' );
  }
@@ -189,9 +191,13 @@ function wporg_options_page_html() {
  <?php
  // output security fields for the registered setting "wporg"
  settings_fields( 'wporg' );
+
+
  // output setting sections and their fields
  // (sections are registered for "wporg", each field is registered to a specific section)
  do_settings_sections( 'wporg' );
+
+
  // output save settings button
  submit_button( 'Save Settings' );
  ?>
@@ -243,7 +249,11 @@ function setting_init(){
         'setting_field Title',
         'callback_third',
         'own-custom-settings',
-        'section_setting'
+        'section_setting',
+        [
+            'label_for'=>'setting_field',
+            'class'=>'first_class',
+        ]
     );
 }
 add_action('admin_init','setting_init');
@@ -256,7 +266,101 @@ function callback_third(){
     // echo "this text is due to third callback function";
     $setting=get_option('setting_options');
     ?>
-    <input type="text" name="setting_options" value="<?php echo isset( $setting ) ? esc_attr( $setting ) : ''; ?>">
+    <input type="text" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="setting_options" value="<?php echo isset( $setting ) ? esc_attr( $setting ) : ''; ?>">
     <?php
 }
+
+
+
+////////////////////////////////////////////////////////////////////////
+
+
+
+function setting_init1(){
+    register_setting('own-custom-settings','setting_options1');
+
+    add_settings_section(
+        'section_setting1',  //id
+        'section setting1',  //title
+        'callback_second1',  // callback function
+        'own-custom-settings' // page slug
+
+    );
+
+    add_settings_field(
+        'setting_field1',
+        'setting_field Title1',
+        'callback_third1',
+        'own-custom-settings',
+        'section_setting1',
+        [
+            'label_for'=>'setting_field',
+            'class'=>'first_class',
+        ]
+    );
+}
+add_action('admin_init','setting_init1');
+
+function callback_second1(){
+    echo "this text is due to second callback function";
+}
+
+function callback_third1(){
+    // echo "this text is due to third callback function";
+    $setting1=get_option('setting_options1');
+    ?>
+    <input type="text" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="setting_options1" value="<?php echo isset( $setting1 ) ? esc_attr( $setting1 ) : ''; ?>">
+    <?php
+}
+
+//--------------------------------------------------------------------------------------------------------------------
+// this function is to register custom post type.
+function wporg_custom_post_type() {
+    register_post_type('wporg_product',  // id or key  // when we will make any new post using this custom post type then in wp_post the post type will be 'wporg_product'.
+        array(
+            'labels'      => array(
+                'name'          => __( 'Products', 'textdomain' ), // name that will be shown on label.
+                'singular_name' => __( 'Product', 'textdomain' ),
+            ),
+            'public'      => true,  // related to visibility.
+            'show_in_nav_menus'=>true, // if we want our post of this custom post type to be shown in nav menu the set it true.
+            'has_archive' => true,  
+            'rewrite'     => array( 'slug' => 'products' ), // my custom slug
+            'supports' => array('title','editor','excerpt','author','comments','revisions','custom-fields'),  // to add some more features.
+        )
+    );
+}
+add_action('init', 'wporg_custom_post_type');
+
+//------------------------------------------------------------------------------------------------------------------------------------
+// this function is to register custom taxonomy.
+// by default wordpress provide two taxonomies categories and tags.
+
+function wporg_register_taxonomy_course()
+{
+    $labels = [
+        'name'              => _x('Courses', 'taxonomy general name'),
+'singular_name'     => _x('Course', 'taxonomy singular name'),
+'search_items'      => __('Search Courses'),
+'all_items'         => __('All Courses'),
+'parent_item'       => __('Parent Course'),
+'parent_item_colon' => __('Parent Course:'),
+'edit_item'         => __('Edit Course'),
+'update_item'       => __('Update Course'),
+'add_new_item'      => __('Add New Course'),
+'new_item_name'     => __('New Course Name'),
+'menu_name'         => __('Course'),
+];
+$args = [
+'hierarchical'      => true, // make it hierarchical (like categories)
+'labels'            => $labels,
+'show_ui'           => true,
+'show_admin_column' => true,
+'query_var'         => true,
+'rewrite'           => ['slug' => 'course'],
+];
+register_taxonomy('course', ['post'], $args);
+}
+add_action('init', 'wporg_register_taxonomy_course');
+
 

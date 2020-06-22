@@ -57,11 +57,38 @@ function new_function(){
 function add_all_pages(){
 	echo "we are in add all pages";
 	echo PLUGIN_URL;
+	
+$args = array(
+    'post_type'      => 'wporg_product',
+    'posts_per_page' => 10,
+);
+$loop = new WP_Query($args);
+while ( $loop->have_posts() ) {
+    $loop->the_post();
+    ?>
+    <div class="entry-content">
+        <?php the_title(); ?>
+        <?php the_content(); ?>
+    </div>
+    <?php
+}
+
+global $wpdb;
+// simply we just pull some data from wp_posts table
+$db_results=$wpdb->get_results(
+	$wpdb->prepare(
+		"SELECT * FROM wp_posts order by ID limit 5",''
+	)
+);
+echo "<pre>";print_r($db_results); echo "</pre>";
 }
 
 function request_script(){
 	wp_enqueue_script('my_script',PLUGIN_URL.'/plugin_demo/js/script.js','',PLUGIN_VERSION,true);
-	wp_localize_script('my_script','ajax',admin_url('admin-ajax.php'));
+	//wp_localize_script('my_script','ajax',admin_url('admin-ajax.php'));
+	wp_localize_script('my_script','ajax',array(
+		'ajax_url'=> admin_url('admin-ajax.php')
+	));
 	wp_enqueue_script("jquery");
 }
 add_action('init','request_script');
@@ -70,5 +97,20 @@ function owt_include_scripts(){
 	wp_enqueue_script("jquery");
 }
 add_action("wp_enqueue_scripts","owt_include_scripts");
+
+
+add_action("wp_ajax_demo_aj","ajax_handler_function");
+add_action("wp_ajax_nopriv_demo_aj","ajax_handler_function");
+
+function ajax_handler_function(){
+	if(isset($_REQUEST['data'])){
+		$data=$_REQUEST['data'];
+
+		echo json_encode($data);
+	}
+	wp_die();
+
+	
+}
 
 

@@ -73,7 +73,7 @@ function custom_plugin_assets(){
 
 		wp_enqueue_script(
 			"cpl_script",  // unique name or id for js file.
-			PLUGIN_URL.'/custom-plugin/assets/js/script.js',
+			PLUGIN_URL.'/custom-plugin/assets/js/script.js',  // js file path.
 			'',  //dependency on other files.
 			PLUGIN_VERSION, // plugin version number.
 			false
