@@ -418,7 +418,7 @@ function example_ajax(){
         $fruit = $_REQUEST['fruit'];
          
         // Let's take the data that was sent and do something with it
-        if ( $fruit == 'Banana' ) {
+        if ( $fruit == 'grapes' ) {
             $fruit = 'Apple';
         }
      
