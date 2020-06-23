@@ -12,6 +12,7 @@
   
 </head>
 <body>
+  <?php echo do_shortcode("[own-plugin]");?>
 
 <div class="container">
   <h2>Vertical (basic) form</h2>
@@ -27,6 +28,8 @@
     <button type="button" class="btn btn-default">Submit</button>
   </form>
 </div>
+
+<?php echo get_template_directory_uri();?>
 
 <div>
   <h3 class="yes"></h3>

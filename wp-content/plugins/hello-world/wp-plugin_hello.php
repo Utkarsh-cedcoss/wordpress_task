@@ -11,6 +11,12 @@ Author: Utkarsh Saxena
 Version: 1.7.2
 Author URI: http://ma.tt/
 */
+
+define("THIS_PLUGIN",plugins_url());
+define("THE_PATH",plugin_dir_path(__FILE__));
+define("THE_VERSION","2.0");
+
+
 function add_time(){
     $current_time=date("h:i:sa");
     add_option("date",$current_time);
@@ -207,6 +213,7 @@ function wporg_options_page_html() {
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------
+// another example of custom setting.
 
 function custom_menu_page(){
     add_menu_page('custom_settings',  //page title
@@ -363,4 +370,69 @@ register_taxonomy('course', ['post'], $args);
 }
 add_action('init', 'wporg_register_taxonomy_course');
 
+//----------------------------------------------------------------------------------------------------------------------------
+function menu_maker(){
+    add_menu_page(
+        "AJAX_MENU", //page title
+        "AJAX DEMO", //menu title
+        "manage_options", //admin level
+        "demo-ajax", // page slug
+        "ajax_function", // callback function
+        "dashicons-visibility", // icon url
+    11); //position
+}
+add_action("admin_menu","menu_maker");
 
+function ajax_function(){
+    include_once THE_PATH."/hello-world_addnew.php";
+}
+
+function making_script(){
+    wp_enqueue_script('hello-world-script',
+    THIS_PLUGIN.'/hello-world/hello-world_script.js',
+    array('jquery')
+);
+
+wp_localize_script(
+    'hello-world-script',
+    'object',
+    array(
+        'ajaxurl' => admin_url( 'admin-ajax.php' ),
+        'nonce' => wp_create_nonce('ajax-nonce')
+    )
+);
+}
+add_action('init','making_script');
+
+
+
+function example_ajax(){
+    $nonce=$_POST['nonce'];
+
+    if ( ! wp_verify_nonce( $nonce, 'hello-world-script' ) ) {
+        die( 'Nonce value cannot be verified.' );
+    }
+
+    if ( isset($_REQUEST) ) {
+     
+        $fruit = $_REQUEST['fruit'];
+         
+        // Let's take the data that was sent and do something with it
+        if ( $fruit == 'Banana' ) {
+            $fruit = 'Apple';
+        }
+     
+        // Now we'll return it to the javascript function
+        // Anything outputted will be returned in the response
+        echo $fruit;
+         
+        // If you're debugging, it might be useful to see what was sent in the $_REQUEST
+        // print_r($_REQUEST);
+     
+    }
+     
+    // Always die in functions echoing ajax content
+   die();
+}
+add_action('wp_ajax_ajax_request','example_ajax');
+add_action('wp_ajax_nopriv_ajax_request','example_ajax');

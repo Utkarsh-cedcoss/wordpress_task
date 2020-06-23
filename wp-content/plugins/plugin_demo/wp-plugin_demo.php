@@ -83,11 +83,17 @@ $db_results=$wpdb->get_results(
 echo "<pre>";print_r($db_results); echo "</pre>";
 }
 
+
+//-------------------------------------------------------------------------------------------------------------------
+
+// this following function registers and localizes the script.
+
 function request_script(){
 	wp_enqueue_script('my_script',PLUGIN_URL.'/plugin_demo/js/script.js','',PLUGIN_VERSION,true);
 	//wp_localize_script('my_script','ajax',admin_url('admin-ajax.php'));
 	wp_localize_script('my_script','ajax',array(
-		'ajax_url'=> admin_url('admin-ajax.php')
+		'ajax_url'=> admin_url('admin-ajax.php'),
+		'nonce' => wp_create_nonce('ajax-nonce')
 	));
 	wp_enqueue_script("jquery");
 }
@@ -99,18 +105,60 @@ function owt_include_scripts(){
 add_action("wp_enqueue_scripts","owt_include_scripts");
 
 
-add_action("wp_ajax_demo_aj","ajax_handler_function");
-add_action("wp_ajax_nopriv_demo_aj","ajax_handler_function");
 
-function ajax_handler_function(){
-	if(isset($_REQUEST['data'])){
-		$data=$_REQUEST['data'];
+/////////////////////////////////////
+//
+//  this function handles the request coming from .js file.
+function example_ajax_request(){
+	$nonce=$_POST['nonce'];
 
-		echo json_encode($data);
+	if ( ! wp_verify_nonce( $nonce, 'my-script' ) ) {
+        die( 'Nonce value cannot be verified.' );
 	}
+
+	if(isset($_REQUEST)){
+		$info=$_REQUEST['info'];
+
+		print_r($info);
+	}
+
 	wp_die();
+	
+
+}
+add_action( 'wp_ajax_example_ajax_request', 'example_ajax_request' );
+ 
+// If you wanted to also use the function for non-logged in users (in a theme for example)
+add_action( 'wp_ajax_nopriv_example_ajax_request', 'example_ajax_request' );
+
+
+
+
+
+// add_action("wp_ajax_demo_aj","ajax_handler_function");
+// add_action("wp_ajax_nopriv_demo_aj","ajax_handler_function");
+
+// function ajax_handler_function(){
+// 	if(isset($_REQUEST['data'])){
+// 		$data=$_REQUEST['data'];
+
+// 		echo json_encode($data);
+// 	}
+// 	wp_die();
 
 	
+// }
+
+//--------------------------------------------------------------------------------------------------
+
+add_shortcode("own-plugin","customPluginFunction");
+
+function customPluginFunction(){
+	//echo "Hello online web tutor";
+	include_once PLUGIN_DIRECTORY_PATH."/views/shortcode_demo.php";
 }
+
+
+
 
 

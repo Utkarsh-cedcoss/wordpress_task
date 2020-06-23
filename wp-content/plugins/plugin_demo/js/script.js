@@ -1,31 +1,51 @@
 /** this is our js file */
-/* jQuery(function(){ */
-    
-    
-    //     submitHandler:function(){
-    //         var post_data = $("#frmPost").serialize();
-    //         console.log(post_data);
-
+//   jQuery(function(){  
+      
+//     jQuery("button").on("click",function(){
+        
+        
+//          var Name=jQuery("#txtName").val();
+//          var Email=jQuery("#txtEmail").val();
+//          var info = { action : "demo_aj", data: new Array(Name,Email) };
+//          jQuery.post(ajax.ajax_url, info ,function(response){
             
-    //     }
+//             jQuery(".yes").text(response);
+//          });
+        
+        
+        
+//     });
 
-    // })
-  jQuery(function(){  
-      //var ajaxurl = '<?php ?>';
-    jQuery("button").on("click",function(){
-        
-        //var output='<?php echo "this is right"?>';
-        //console.log(ajax.ajax_url);
-         var Name=jQuery("#txtName").val();
-         var Email=jQuery("#txtEmail").val();
-         var info = { action : "demo_aj", data: new Array(Name,Email) };
-         jQuery.post(ajax.ajax_url, info ,function(response){
-            //console.log(response);
-            jQuery(".yes").text(response);
-         });
-         //console.log(info);
-        
-        
+// });
+
+
+jQuery(document).ready(function($) {
+  //console.log("yess...");
+  $("button").click(function(){
+    //console.log("clicked");
+    var Name=jQuery("#txtName").val();
+    var Email=jQuery("#txtEmail").val();
+    var info = new Array(Name,Email);
+    //console.log(ajax.ajax_url);
+    
+    $.ajax({
+      url : ajax.ajax_url,
+      data : {
+        'action':'example_ajax_request',
+        'info' : info,
+        'nonce' : ajax.nonce
+      },
+
+      success:function(data) {
+        // This outputs the result of the ajax request
+        console.log(data);
+    },
+    error: function(errorThrown){
+        console.log(errorThrown);
+    }
+
+    
     });
 
+  });
 });
