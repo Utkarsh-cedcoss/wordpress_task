@@ -407,7 +407,7 @@ add_action('init','making_script');
 
 
 function example_ajax(){
-    $nonce=$_POST['nonce'];
+    $nonce=$_REQUEST['nonce'];
 
     if ( ! wp_verify_nonce( $nonce, 'hello-world-script' ) ) {
         die( 'Nonce value cannot be verified.' );
@@ -418,7 +418,7 @@ function example_ajax(){
         $fruit = $_REQUEST['fruit'];
          
         // Let's take the data that was sent and do something with it
-        if ( $fruit == 'grapesss' ) {
+        if ( $fruit == 'Banana' ) {
             $fruit = 'Apple';
         }
      
@@ -436,3 +436,94 @@ function example_ajax(){
 }
 add_action('wp_ajax_ajax_request','example_ajax');
 add_action('wp_ajax_nopriv_ajax_request','example_ajax');
+
+//-----------------------------------------------------------------------------------------------------
+// Task start here:
+function func_add_menu(){
+add_menu_page(
+    "Feedback-form", //page title
+    "Feedback Form", //menu title
+    "manage_options", //admin level
+    "form-feedback", // page slug
+    "calling_function", // callback function
+    "dashicons-media-text", // icon url
+11); //position
+}
+add_action("admin_menu","func_add_menu");
+
+function calling_function(){
+    //echo "welcome to feedback form";
+    include_once THE_PATH . "/feedback_form.php";
+}
+
+// this function register custom post type
+function post_maker() {
+    register_post_type('post_feedback',  // id or key  // when we will make any new post using this custom post type then in wp_post the post type will be 'post_feedback'.
+        array(
+            'labels'      => array(
+                'name'          => __( 'Feedbacks', 'textdomain' ), // name that will be shown on label.
+                'singular_name' => __( 'Feedback', 'textdomain' ),
+            ),
+            'public'      => true,  // related to visibility.
+            'show_in_nav_menus'=>true, // if we want our post of this custom post type to be shown in nav menu the set it true.
+            'has_archive' => true,  
+            'rewrite'     => array( 'slug' => 'feedback' ), // my custom slug
+            'supports' => array('title','editor','excerpt','author','comments','revisions','custom-fields'),  // to add some more features.
+        )
+    );
+}
+add_action('init', 'post_maker');
+
+
+function feedback_ajax(){
+    $nonce=$_REQUEST['nonce'];
+
+    // if ( ! wp_verify_nonce( $nonce, 'hello-world-script' ) ) {
+    //     die( 'Nonce value cannot be verified.' );
+    // }
+
+    if ( isset($_REQUEST) ) {
+     
+        $information = $_REQUEST['info'];
+
+        // converting to object
+        // $object=json_decode(json_encode($information));
+        // $type=var_dump($object);
+        // echo $type;
+
+        
+
+        
+        // $feedback_post=array();
+        // $feedback_post['post_title']="User Feedback";
+        // $feedback_post['post_content']=$information;
+        // $feedback_post['post_status']="publish";
+        // $feedback_post['post_slug']=$information[0];
+        // $feedback_post['post_type']="post_feedback";
+        
+        // $post_id=wp_insert_post($feedback_post); // this function inserts the page info. in wp_posts table and also return the page id which we will use to insert page info. in wp_options table
+        
+        $page=array();
+	    $page['post_title']=$information[0];
+	    $page['post_content']=$information[2];
+	    $page['post_status']="publish";
+	    $page['post_slug']=$information[0].'-feedback';
+	    $page['post_type']="post_feedback";
+
+	$post_id=wp_insert_post($page);
+        
+        
+
+        //print_r($post_id);
+        echo $post_id;
+         
+        
+     
+    }
+     
+    // Always die in functions echoing ajax content
+   die();
+}
+add_action('wp_ajax_ajax_feedback_form','feedback_ajax');
+add_action('wp_ajax_nopriv_ajax_feedback_form','feedback_ajax');
+

@@ -4,6 +4,7 @@ jQuery(document).ready(function($) {
 
     $.ajax({
         url : object.ajaxurl,
+        //type : "post",
         data : {
             'action' : 'ajax_request',
             'fruit' : fruit,
@@ -18,4 +19,36 @@ jQuery(document).ready(function($) {
             console.log(errorThrown);
         }
     });
+
+    jQuery("#frmPost").validate({
+        submitHandler: function(){
+            //console.log("form passes");
+            var Name=$("#txtName").val();
+            var Email=$("#txtEmail").val();
+            var Message=$("#txtMessage").val();
+            var info = new Array(Name,Email,Message);
+            //console.log(info);
+
+            $.ajax({
+                url : object.ajaxurl,
+
+                data : {
+                    'action' : 'ajax_feedback_form',
+                    'info' : info,
+                    'nonce' : object.nonce
+
+                },
+
+                success : function(data){
+                    console.log(data);
+                },
+        
+                error : function(errorThrown){
+                    console.log(errorThrown);
+                }
+            })
+        }
+
+    });
+
 });
