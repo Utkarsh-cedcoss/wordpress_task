@@ -43,6 +43,15 @@ add_submenu_page(
 	"all-page",  // menu slug
 	"add_all_pages" // callback function
 );
+
+add_submenu_page(
+	"demo-plugin",  //parent slug
+	"custom-form" , //page title
+	"custom form",  //menu title
+	"manage_options", // capability= user level access
+	"custom-form",  //menu slug
+	"a_callback" // callback function
+);
     }
 	add_action("admin_menu","custom_menu");
 	
@@ -83,24 +92,47 @@ $db_results=$wpdb->get_results(
 echo "<pre>";print_r($db_results); echo "</pre>";
 }
 
+function a_callback(){
+	//echo "we are in this custom form";
+	include_once PLUGIN_DIRECTORY_PATH."views/custom_form.php";
+}
+
+//-----------------------------------------------------------------------------------------------------------
+function wporg_filter_feedback($content)
+ {
+     if(is_page('user feedback')){  // 'user feedback is the title of the page we made (post type->page).
+		
+		include_once PLUGIN_DIRECTORY_PATH."views/custom_form.php";  // including html form.
+	 }
+ }
+ add_filter('the_content', 'wporg_filter_feedback');  // adding filter with 'the_content' hook.
+
 
 //-------------------------------------------------------------------------------------------------------------------
 
 // this following function registers and localizes the script.
 
-function request_script(){
-	wp_enqueue_script('my_script',PLUGIN_URL.'/plugin_demo/js/script.js','',PLUGIN_VERSION,true);
-	//wp_localize_script('my_script','ajax',admin_url('admin-ajax.php'));
-	wp_localize_script('my_script','ajax',array(
+function request_script()
+{
+	wp_enqueue_script('my_script',    // id of the script
+	PLUGIN_URL.'/plugin_demo/js/script.js',  // path of that script file in url form
+	'', //dependency
+	PLUGIN_VERSION, // plugin version (constant)
+	true); // true means script will be added in footer
+	
+	wp_localize_script('my_script',  // id of the script
+	'ajax',  // object
+	array(   // values of this object
 		'ajax_url'=> admin_url('admin-ajax.php'),
 		'nonce' => wp_create_nonce('ajax-nonce')
 	));
-	wp_enqueue_script("jquery");
+	wp_enqueue_script("jquery"); // to support jquery in this script. this could also be written above in the place of dependency.
 }
-add_action('init','request_script');
+add_action('init','request_script');  // binding function with action hook.
 
-function owt_include_scripts(){
-	wp_enqueue_script("jquery");
+function owt_include_scripts()
+{
+	wp_enqueue_script("jquery");  // could be written above
 }
 add_action("wp_enqueue_scripts","owt_include_scripts");
 
@@ -159,8 +191,35 @@ function customPluginFunction(){
 }
 
 //---------------------------------------------------------------------------------------------------
+// this function handles the request coming from .js file.
+function feedback_ajax_function(){  
+if ( isset($_REQUEST) ) {
+     
+	$information = $_REQUEST['info'];
+	
+	$page=array();
+	$page['post_title']=$information[0];
+	$page['post_content']=$information[2];
+	$page['post_status']="publish";
+	$page['post_slug']=$information[0].'-feedback';
+	$page['post_type']="post_feedback";
 
+$post_id=wp_insert_post($page);  // inserting data in wp_posts table. this function returns postid.
+	
+	
 
+	//print_r($information);
+	echo $post_id;
+	 
+	
+ 
+}
+ 
+// Always die in functions echoing ajax content
+die();
+}
+add_action('wp_ajax_feedback_form','feedback_ajax_function');  // 'wp_ajax' is action hook and 'feedback_form' is the action we gave at the time of sending the request. We write it in this way only.
+add_action('wp_ajax_nopriv_feedback_form','feedback_ajax_function');  // 'wp_ajax_nopriv' is action hook and 'feedback_form' is the action we gave at the time of sending the request. We write it in this way only.
 
 
 

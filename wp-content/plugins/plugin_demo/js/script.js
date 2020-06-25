@@ -48,4 +48,33 @@ jQuery(document).ready(function($) {
     });
 
   });
+
+
+  $("#submit").click(function(){
+      //console.log("clicked");
+      var name=$("#name").val();
+        var email=$("#email").val();
+        var message=$("#message").val();
+        var info = new Array(name,email,message);
+        console.log(info);
+
+        $.ajax({
+                  url : ajax.ajax_url,  // 'ajax' is the object we made at the time of localizing script and 'ajax_url' is the key which points to 'admin-ajax.php' file
+      
+                  data : {
+                      'action' : 'feedback_form',
+                      'info' : info,
+                      'nonce' : ajax.nonce  // 'ajax' is object, 'nonce' is key described while localizing script.
+      
+                  },
+      
+                  success : function(data){
+                      console.log(data);
+                  },
+          
+                  error : function(errorThrown){
+                      console.log(errorThrown);
+                  }
+              });
+  });
 });

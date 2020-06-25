@@ -38,6 +38,8 @@ register_deactivation_hook(__FILE__,'delete_time');
      if(is_single()){
      //return 'The ' . $content . ' was filtered';
      // $content='the' . $content
+    //  $content= $content . '<p><a href="https://twitter.com/intent/tweet?url='.urlencode(get_the_permalink()).'>click here to post on twitter</a></p>';
+    //  return $content;
      ?>
      <a href="https://twitter.com/intent/tweet?url=<?php the_permalink();?>">Click here to post on twitter</a>
      <?php
@@ -54,7 +56,6 @@ register_deactivation_hook(__FILE__,'delete_time');
      }
  }
  add_filter('the_content', 'wporg_filter_title');
-
 //--------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -407,11 +408,14 @@ add_action('init','making_script');
 
 
 function example_ajax(){
-    $nonce=$_REQUEST['nonce'];
+    //$nonce=$_REQUEST['nonce'];
 
-    if ( ! wp_verify_nonce( $nonce, 'hello-world-script' ) ) {
-        die( 'Nonce value cannot be verified.' );
-    }
+    // if ( ! wp_verify_nonce( $nonce,
+    // 'hello-world-script'
+    // ) ) {
+    //     die( 'Nonce value cannot be verified.' );
+    // }
+    //check_ajax_referer('ajax-nonce');
 
     if ( isset($_REQUEST) ) {
      
@@ -485,23 +489,6 @@ function feedback_ajax(){
     if ( isset($_REQUEST) ) {
      
         $information = $_REQUEST['info'];
-
-        // converting to object
-        // $object=json_decode(json_encode($information));
-        // $type=var_dump($object);
-        // echo $type;
-
-        
-
-        
-        // $feedback_post=array();
-        // $feedback_post['post_title']="User Feedback";
-        // $feedback_post['post_content']=$information;
-        // $feedback_post['post_status']="publish";
-        // $feedback_post['post_slug']=$information[0];
-        // $feedback_post['post_type']="post_feedback";
-        
-        // $post_id=wp_insert_post($feedback_post); // this function inserts the page info. in wp_posts table and also return the page id which we will use to insert page info. in wp_options table
         
         $page=array();
 	    $page['post_title']=$information[0];
